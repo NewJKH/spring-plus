@@ -3,6 +3,7 @@ package org.example.expert.domain.todo.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.example.expert.domain.comment.entity.Comment;
 import org.example.expert.domain.common.entity.Timestamped;
 import org.example.expert.domain.manager.entity.Manager;
@@ -30,7 +31,7 @@ public class Todo extends Timestamped {
     @OneToMany(mappedBy = "todo", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "todo")
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.PERSIST)
     private List<Manager> managers = new ArrayList<>();
 
     public Todo(String title, String contents, String weather, User user) {
@@ -40,4 +41,5 @@ public class Todo extends Timestamped {
         this.user = user;
         this.managers.add(new Manager(user, this));
     }
+
 }
