@@ -7,10 +7,12 @@ import org.example.expert.domain.user.dto.request.UserChangePasswordRequest;
 import org.example.expert.domain.user.dto.response.UserResponse;
 import org.example.expert.domain.user.entity.User;
 import org.example.expert.domain.user.repository.UserRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,8 +46,11 @@ public class UserService {
     }
 
     public UserResponse getUserByNickName(String nickname){
-        User user = userRepository.getUserByNickname(nickname);
-        return new UserResponse(user.getId(),user.getEmail());
+        Optional<User> user = userRepository.findByNickname(nickname);
+        if ( user.isEmpty() ){
+            throw new UsernameNotFoundException(" 유저를 찾을 수 없습니다.");
+        }
+        return new UserResponse(user.get().getId(),user.get().getEmail());
     }
 
     private void validateNewPassword(UserChangePasswordRequest userChangePasswordRequest) {
