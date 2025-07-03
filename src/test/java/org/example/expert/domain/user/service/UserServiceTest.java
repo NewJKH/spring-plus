@@ -2,6 +2,7 @@ package org.example.expert.domain.user.service;
 
 import org.example.expert.domain.user.dto.response.UserResponse;
 import org.example.expert.domain.user.entity.User;
+import org.example.expert.domain.user.enums.UserRole;
 import org.example.expert.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.*;
+
+import static java.lang.Math.log;
 import static org.awaitility.Awaitility.given;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -33,7 +37,7 @@ class UserServiceTest {
         ReflectionTestUtils.setField(user,"id",1L);
         ReflectionTestUtils.setField(user,"nickname","장군호");
 
-        when(userRepository.getUserByNickname("장군호")).thenReturn(user);
+        when(userRepository.findByNickname("장군호")).thenReturn(Optional.of(user));
         //w
         UserResponse userResponse = userService.getUserByNickName("장군호");
         //t
