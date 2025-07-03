@@ -10,6 +10,8 @@ import org.example.expert.domain.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -41,7 +43,12 @@ public class UserService {
         user.changePassword(passwordEncoder.encode(userChangePasswordRequest.getNewPassword()));
     }
 
-    private static void validateNewPassword(UserChangePasswordRequest userChangePasswordRequest) {
+    public UserResponse getUserByNickName(String nickname){
+        User user = userRepository.getUserByNickname(nickname);
+        return new UserResponse(user.getId(),user.getEmail());
+    }
+
+    private void validateNewPassword(UserChangePasswordRequest userChangePasswordRequest) {
         if (userChangePasswordRequest.getNewPassword().length() < 8 ||
                 !userChangePasswordRequest.getNewPassword().matches(".*\\d.*") ||
                 !userChangePasswordRequest.getNewPassword().matches(".*[A-Z].*")) {
