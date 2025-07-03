@@ -55,4 +55,15 @@ public class UserRepositoryTest {
         em.flush();
         em.clear();
     }
+
+    @Test
+    @Order(2)
+    void searchNicknamePerformance() {
+        long start = System.currentTimeMillis();
+        Optional<User> result = userRepository.findByNickname("user_777777");
+        long end = System.currentTimeMillis();
+
+        System.out.println("검색 시간: " + (end - start) + "ms");
+        assertThat(result).isPresent();
+    }
 }
