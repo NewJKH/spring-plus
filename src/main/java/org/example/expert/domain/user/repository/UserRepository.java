@@ -14,17 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
     boolean existsByEmail(String email);
 
+    //CREATE INDEX idx_nickname ON users(nickname); SQL 적용 후
     @Query("SELECT u FROM User u WHERE u.nickname = :nickname")
     Optional<User> findByNickname(@Param("nickname") String nickname);
-
-    @Query(value = "SELECT id FROM users WHERE nickname = :nickname LIMIT 1", nativeQuery = true)
-    Optional<Long> findIdFastest(@Param("nickname") String nickname);
-
-
-    // CREATE INDEX idx_nickname_id ON users(nickname, id); 를 SQL 로 사용 후
-    @Query(value = "SELECT * FROM users WHERE nickname = :nickname LIMIT 1", nativeQuery = true)
-    Optional<User> findByNicknameFast(@Param("nickname") String nickname);
-
-    @Query(value = "SELECT * FROM users WHERE id = :id LIMIT 1", nativeQuery = true)
-    Optional<User> findByIdFast(@Param("id") Long id);
 }

@@ -60,7 +60,7 @@ public class UserRepositoryTest {
     @Order(2)
     void searchNicknamePerformance() {
         long start = System.currentTimeMillis();
-        Optional<User> result = userRepository.findByNicknameFast("user_777777");
+        Optional<User> result = userRepository.findByNickname("user_777777");
         long end = System.currentTimeMillis();
 
         System.out.println("개선2 시간 측정 값 : " + (end - start) + "ms");
