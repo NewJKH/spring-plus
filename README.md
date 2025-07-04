@@ -14,4 +14,11 @@
 ![img.png](image/기본_결과.png)
 
 ### 두번째 개선
-계속해서 시도 중...
+![img.png](image/중간_코드.png)
+
+![img.png](image/중간_쿼리.png)
+
+![img.png](image/중간_결과.png)
+
+### 세번째 개선
+... 시도 중
